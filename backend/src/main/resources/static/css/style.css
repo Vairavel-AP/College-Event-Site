@@ -1,0 +1,219 @@
+:root {
+  --primary: #6c2bd9;
+  --primary-dark: #4c1d95;
+  --accent: #f59e0b;
+  --light: #f8f7fc;
+  --dark: #201a2b;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  font-family: 'Segoe UI', Arial, sans-serif;
+  background: var(--light);
+  color: var(--dark);
+}
+
+.navbar {
+  background: linear-gradient(90deg, var(--primary-dark), var(--primary));
+  padding: 14px 30px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+
+.navbar .brand {
+  color: #fff;
+  font-size: 1.4rem;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.navbar nav a {
+  color: #eee;
+  text-decoration: none;
+  margin-left: 20px;
+  font-weight: 500;
+  padding: 6px 4px;
+  border-bottom: 2px solid transparent;
+  transition: border-color 0.2s;
+}
+
+.navbar nav a:hover,
+.navbar nav a.active {
+  border-color: var(--accent);
+  color: #fff;
+}
+
+.hero {
+  background: radial-gradient(circle at top left, var(--primary), var(--primary-dark));
+  color: #fff;
+  padding: 70px 30px;
+  text-align: center;
+}
+
+.hero h1 {
+  font-size: 2.6rem;
+  margin-bottom: 10px;
+}
+
+.hero p {
+  font-size: 1.15rem;
+  max-width: 640px;
+  margin: 0 auto 24px auto;
+  opacity: 0.92;
+}
+
+.btn {
+  display: inline-block;
+  background: var(--accent);
+  color: #201a2b;
+  font-weight: 700;
+  padding: 12px 26px;
+  border-radius: 6px;
+  text-decoration: none;
+  transition: transform 0.15s;
+}
+.btn:hover { transform: translateY(-2px); }
+
+.container {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 40px 20px;
+}
+
+.section-title {
+  font-size: 1.8rem;
+  margin-bottom: 26px;
+  text-align: center;
+  color: var(--primary-dark);
+}
+
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 22px;
+}
+
+.card {
+  background: #fff;
+  border-radius: 10px;
+  padding: 22px;
+  box-shadow: 0 4px 14px rgba(0,0,0,0.08);
+  border-top: 4px solid var(--primary);
+}
+
+.card h3 { margin-top: 0; color: var(--primary-dark); }
+
+table.schedule {
+  width: 100%;
+  border-collapse: collapse;
+  background: #fff;
+  box-shadow: 0 4px 14px rgba(0,0,0,0.08);
+}
+
+table.schedule th, table.schedule td {
+  padding: 12px 16px;
+  border-bottom: 1px solid #eee;
+  text-align: left;
+}
+
+table.schedule th {
+  background: var(--primary);
+  color: #fff;
+}
+
+table.schedule tr:hover { background: #f3eefe; }
+
+.badge {
+  display: inline-block;
+  background: var(--accent);
+  color: #201a2b;
+  font-size: 0.75rem;
+  font-weight: 700;
+  padding: 2px 10px;
+  border-radius: 12px;
+}
+
+form.reg-form {
+  background: #fff;
+  padding: 26px;
+  border-radius: 10px;
+  box-shadow: 0 4px 14px rgba(0,0,0,0.08);
+  max-width: 520px;
+  margin: 0 auto;
+}
+
+form.reg-form label {
+  display: block;
+  margin-top: 14px;
+  font-weight: 600;
+  margin-bottom: 6px;
+}
+
+form.reg-form input,
+form.reg-form select,
+form.reg-form textarea {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  font-size: 1rem;
+}
+
+form.reg-form button {
+  margin-top: 20px;
+  width: 100%;
+  background: var(--primary);
+  color: #fff;
+  border: none;
+  padding: 12px;
+  border-radius: 6px;
+  font-size: 1rem;
+  font-weight: 700;
+  cursor: pointer;
+}
+form.reg-form button:hover { background: var(--primary-dark); }
+
+#regSuccess {
+  display: none;
+  margin-top: 16px;
+  background: #e7f9ee;
+  color: #1a7f4e;
+  padding: 12px;
+  border-radius: 6px;
+  font-weight: 600;
+}
+
+.announcement {
+  background: #fff;
+  border-left: 5px solid var(--accent);
+  padding: 16px 20px;
+  margin-bottom: 16px;
+  border-radius: 6px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+}
+
+.announcement .date {
+  font-size: 0.8rem;
+  color: #888;
+}
+
+footer {
+  background: var(--dark);
+  color: #ccc;
+  text-align: center;
+  padding: 22px;
+  margin-top: 40px;
+  font-size: 0.9rem;
+}
+
+/* Simple health/status badge used to eyeball that the app + actuator are alive */
+#buildInfo {
+  font-size: 0.75rem;
+  color: #999;
+  text-align: center;
+  padding-bottom: 10px;
+}

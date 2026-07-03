@@ -1,0 +1,36 @@
+version: "3.8"
+
+services:
+
+  # Graphite - stores time-series metrics (Carbon on 2003/tcp, Web UI + API on 8080)
+  graphite:
+    image: graphiteapp/graphite-statsd:latest
+    container_name: graphite
+    restart: unless-stopped
+    ports:
+      - "8080:80"     # Graphite web UI  -> http://localhost:8080
+      - "2003:2003"   # Carbon plaintext receiver (metric ingestion)
+      - "2004:2004"   # Carbon pickle receiver
+      - "8125:8125/udp"  # StatsD
+      - "8126:8126"
+    volumes:
+      - graphite-storage:/opt/graphite/storage
+
+  # Grafana - dashboards, reads metrics from Graphite
+  grafana:
+    image: grafana/grafana:latest
+    container_name: grafana
+    restart: unless-stopped
+    ports:
+      - "3000:3000"   # Grafana UI -> http://localhost:3000  (admin/admin on first login)
+    environment:
+      - GF_SECURITY_ADMIN_USER=admin
+      - GF_SECURITY_ADMIN_PASSWORD=admin
+    volumes:
+      - grafana-storage:/var/lib/grafana
+    depends_on:
+      - graphite
+
+volumes:
+  graphite-storage:
+  grafana-storage:

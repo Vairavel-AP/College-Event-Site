@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Announcements | TechFest 2026</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <div class="navbar">
+    <a class="brand" href="index.html">TechFest 2026</a>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="schedule.html">Schedule</a>
+      <a href="speakers.html">Speakers</a>
+      <a href="register.html">Register</a>
+      <a href="announcements.html">Announcements</a>
+    </nav>
+  </div>
+
+  <div class="container">
+    <h2 class="section-title">Announcements</h2>
+
+    <!-- Populated dynamically from GET /api/announcements (see js/script.js) -->
+    <div id="announcementsList">
+      <p style="text-align:center;color:#888;">Loading announcements...</p>
+    </div>
+  </div>
+
+  <footer>
+    &copy; 2026 College of Engineering — Department of Computer Science | TechFest Organizing Committee
+  </footer>
+
+  <script src="js/script.js"></script>
+</body>
+</html>

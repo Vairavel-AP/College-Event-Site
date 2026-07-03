@@ -1,0 +1,136 @@
+pipeline {
+
+    agent any
+
+    tools {
+        jdk 'JDK25'
+        maven 'Maven-3.9'
+    }
+
+    environment {
+        IMAGE_NAME = "techfest-backend"
+        IMAGE_TAG  = "v${BUILD_NUMBER}"
+    }
+
+    stages {
+
+        stage('Checkout Source Code') {
+            steps {
+                echo "Checking out source code from GitHub..."
+
+                git branch: 'main',
+                    url: 'https://github.com/<your-username>/college-event-site.git'
+            }
+        }
+
+        stage('Verify Tools') {
+            steps {
+                echo "Verifying Java..."
+                sh 'java -version'
+
+                echo "Verifying Maven..."
+                sh 'mvn -version'
+
+                echo "Verifying Docker..."
+                sh 'docker --version'
+
+                echo "Verifying Kubernetes..."
+                sh 'kubectl version --client'
+            }
+        }
+
+        stage('Clean Project') {
+            steps {
+                dir('backend') {
+                    echo "Cleaning project..."
+                    sh 'mvn clean'
+                }
+            }
+        }
+
+        stage('Compile Project') {
+            steps {
+                dir('backend') {
+                    echo "Compiling project..."
+                    sh 'mvn compile'
+                }
+            }
+        }
+
+        stage('Run Unit Tests') {
+            steps {
+                dir('backend') {
+                    echo "Running unit tests..."
+                    sh 'mvn test'
+                }
+            }
+        }
+
+        stage('Package Application') {
+            steps {
+                dir('backend') {
+                    echo "Packaging Spring Boot application..."
+                    sh 'mvn package -DskipTests'
+                }
+            }
+        }
+
+        stage('Build Docker Image') {
+            steps {
+                dir('backend') {
+                    echo "Building Docker image..."
+                    sh 'docker build -t ${IMAGE_NAME}:${IMAGE_TAG} -t ${IMAGE_NAME}:latest .'
+                }
+            }
+        }
+
+        stage('List Docker Images') {
+            steps {
+                echo "Available Docker Images"
+                sh 'docker images | grep ${IMAGE_NAME}'
+            }
+        }
+
+        stage('Deploy to Kubernetes') {
+            steps {
+                dir('backend') {
+                    echo "Deploying application to Kubernetes..."
+                    sh '''
+                        sed -i "s#image: techfest-backend:v1#image: ${IMAGE_NAME}:${IMAGE_TAG}#" k8s/deployment.yaml
+                        kubectl apply -f k8s/deployment.yaml
+                        kubectl apply -f k8s/service.yaml
+                    '''
+                }
+            }
+        }
+
+        stage('Verify Deployment') {
+            steps {
+                echo "Checking Deployment..."
+                sh '''
+                    kubectl rollout status deployment/techfest-backend
+                    kubectl get deployments
+                    kubectl get pods
+                    kubectl get svc
+                '''
+            }
+        }
+    }
+
+    post {
+        always {
+            echo "Pipeline Finished."
+        }
+        success {
+            echo "======================================="
+            echo "BUILD SUCCESSFUL"
+            echo "Application Deployed Successfully"
+            echo "======================================="
+        }
+        failure {
+            echo "======================================="
+            echo "BUILD FAILED - Check Jenkins Console Output"
+            echo "======================================="
+        }
+    }
+}

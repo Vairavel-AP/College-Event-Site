@@ -1,0 +1,57 @@
+{
+  "title": "College Event Site - Monitoring Dashboard",
+  "timezone": "browser",
+  "schemaVersion": 39,
+  "refresh": "10s",
+  "panels": [
+    {
+      "type": "timeseries",
+      "title": "CPU Usage (%)",
+      "gridPos": { "h": 8, "w": 12, "x": 0, "y": 0 },
+      "targets": [
+        { "target": "college_event_site.system.cpu_usage_percent" }
+      ]
+    },
+    {
+      "type": "timeseries",
+      "title": "Memory Usage (%)",
+      "gridPos": { "h": 8, "w": 12, "x": 12, "y": 0 },
+      "targets": [
+        { "target": "college_event_site.system.memory_usage_percent" }
+      ]
+    },
+    {
+      "type": "timeseries",
+      "title": "Disk Usage (%)",
+      "gridPos": { "h": 8, "w": 12, "x": 0, "y": 8 },
+      "targets": [
+        { "target": "college_event_site.system.disk_usage_percent" }
+      ]
+    },
+    {
+      "type": "timeseries",
+      "title": "Network Traffic (bytes)",
+      "gridPos": { "h": 8, "w": 12, "x": 12, "y": 8 },
+      "targets": [
+        { "target": "college_event_site.system.network_rx_bytes" },
+        { "target": "college_event_site.system.network_tx_bytes" }
+      ]
+    },
+    {
+      "type": "stat",
+      "title": "HTTP Availability (1=Up, 0=Down)",
+      "gridPos": { "h": 6, "w": 12, "x": 0, "y": 16 },
+      "targets": [
+        { "target": "college_event_site.app.http_availability" }
+      ]
+    },
+    {
+      "type": "stat",
+      "title": "Uptime (seconds)",
+      "gridPos": { "h": 6, "w": 12, "x": 12, "y": 16 },
+      "targets": [
+        { "target": "college_event_site.system.uptime_seconds" }
+      ]
+    }
+  ]
+}
