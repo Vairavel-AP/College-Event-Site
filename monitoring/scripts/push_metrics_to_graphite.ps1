@@ -16,7 +16,7 @@ $MetricPrefix    = "college_event_site"
 # machine (see README troubleshooting section), temporarily run:
 #   kubectl port-forward svc/techfest-backend 8081:8081
 # in another window and change the line below to "http://localhost:8081/healthz".
-$AppUrl          = "http://localhost:30081/healthz"
+$AppUrl          = "http://localhost:8081/healthz"
 
 $IntervalSeconds = 30
 

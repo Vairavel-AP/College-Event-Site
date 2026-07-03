@@ -1,5 +1,4 @@
 services:
-
   # Nagios Core - monitors host/service availability
   # Web UI: http://localhost:8083/nagios  (user: nagiosadmin / pass: nagios)
   nagios:
@@ -10,6 +9,7 @@ services:
       - "8083:80"
     volumes:
       - ./nagios/objects/college-event-site.cfg:/opt/nagios/etc/objects/college-event-site.cfg
+      - ./nagios/nagios.cfg:/opt/nagios/etc/nagios.cfg
     environment:
       - NAGIOSADMIN_USER=nagiosadmin
       - NAGIOSADMIN_PASS=nagios
