@@ -7,7 +7,7 @@
 GRAPHITE_HOST="localhost"
 GRAPHITE_PORT="2003"
 METRIC_PREFIX="college_event_site"
-APP_URL="http://localhost:30081/healthz"
+APP_URL="http://localhost:8081/healthz"
 INTERVAL_SECONDS=30
 
 send_metric() {

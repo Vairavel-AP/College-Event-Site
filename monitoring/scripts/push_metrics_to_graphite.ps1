@@ -25,7 +25,7 @@ function Send-Metric {
         [string]$Path,
         [double]$Value
     )
-    $epoch = [int64](New-TimeSpan -Start (Get-Date "1970-01-01Z") -End (Get-Date).ToUniversalTime()).TotalSeconds
+    $epoch = [DateTimeOffset]::UtcNow.ToUnixTimeSeconds()
     $message = "$MetricPrefix.$Path $Value $epoch`n"
 
     try {
