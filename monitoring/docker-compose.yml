@@ -1,0 +1,52 @@
+services:
+
+  # Nagios Core - monitors host/service availability
+  # Web UI: http://localhost:8083/nagios  (user: nagiosadmin / pass: nagios)
+  nagios:
+    image: jasonrivers/nagios:latest
+    container_name: nagios
+    restart: unless-stopped
+    ports:
+      - "8083:80"
+    volumes:
+      - ./nagios/objects/college-event-site.cfg:/opt/nagios/etc/objects/college-event-site.cfg
+    environment:
+      - NAGIOSADMIN_USER=nagiosadmin
+      - NAGIOSADMIN_PASS=nagios
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+
+  # Graphite - stores time-series metrics
+  # Web UI: http://localhost:8089  |  Carbon ingest: 2003/tcp
+  graphite:
+    image: graphiteapp/graphite-statsd:latest
+    container_name: graphite
+    restart: unless-stopped
+    ports:
+      - "8089:80"
+      - "2003:2003"
+      - "2004:2004"
+      - "8125:8125/udp"
+      - "8126:8126"
+    volumes:
+      - graphite-storage:/opt/graphite/storage
+
+  # Grafana - dashboards, reads metrics from Graphite
+  # Web UI: http://localhost:3000  (admin/admin on first login)
+  grafana:
+    image: grafana/grafana:latest
+    container_name: grafana
+    restart: unless-stopped
+    ports:
+      - "3000:3000"
+    environment:
+      - GF_SECURITY_ADMIN_USER=admin
+      - GF_SECURITY_ADMIN_PASSWORD=admin
+    volumes:
+      - grafana-storage:/var/lib/grafana
+    depends_on:
+      - graphite
+
+volumes:
+  graphite-storage:
+  grafana-storage:

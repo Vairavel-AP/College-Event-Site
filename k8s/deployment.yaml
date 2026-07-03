@@ -2,43 +2,44 @@ apiVersion: apps/v1
 kind: Deployment
 
 metadata:
-  name: college-event-site
+  name: techfest-backend
   labels:
-    app: college-event-site
+    app: techfest-backend
 
 spec:
   replicas: 2
 
   selector:
     matchLabels:
-      app: college-event-site
+      app: techfest-backend
 
   template:
     metadata:
       labels:
-        app: college-event-site
+        app: techfest-backend
 
     spec:
       containers:
-        - name: college-event-site
+        - name: techfest-backend
 
-          image: college-event-site:v1
+          image: techfest-backend:v1
 
           imagePullPolicy: IfNotPresent
 
           ports:
-            - containerPort: 80
+            - containerPort: 8081
+            - containerPort: 9090
 
           livenessProbe:
             httpGet:
               path: /healthz
-              port: 80
-            initialDelaySeconds: 5
+              port: 8081
+            initialDelaySeconds: 20
             periodSeconds: 10
 
           readinessProbe:
             httpGet:
               path: /healthz
-              port: 80
-            initialDelaySeconds: 3
+              port: 8081
+            initialDelaySeconds: 15
             periodSeconds: 5
